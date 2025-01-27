@@ -1,12 +1,14 @@
 from django.db import models
-from django.contrib.postgres.search import SearchVector, SearchQuery
+from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank
 
 
 class ThingQuerySet(models.QuerySet):
     def search(self, query):
+        vector = SearchVector("title", "subtitle", "description")
+        query = SearchQuery(query)
         return self.annotate(
-            search=SearchVector("title", "subtitle", "description")
-        ).filter(search=SearchQuery(query))
+            rank=SearchRank(vector, query)
+        ).filter(search=query).order_by('-rank')
 
 
 class Thing(models.Model):
