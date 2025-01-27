@@ -1,0 +1,29 @@
+/htdocs/media
+/htdocs/static
+
+# Python
+*.py[co]
+
+# Testing
+.coverage
+.tox
+htmlcov
+/reports/
+
+# NodeJS
+/node_modules
+npm-debug.log
+npm-debug.log.*
+static/dist
+
+# Database
+*.dump
+
+# Sentry
+.sentry-release
+
+# DS Store files
+*.DS_Store
+
+# test results
+a11y_test_results.json

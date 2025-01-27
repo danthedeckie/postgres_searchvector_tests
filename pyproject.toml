@@ -1,0 +1,10 @@
+[project]
+name = "postgres-searchvector-things"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "django>=5.1.5",
+    "psycopg2>=2.9.10",
+]
