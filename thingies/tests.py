@@ -6,7 +6,17 @@ class ThingModelTest(TestCase):
     def setUp(self):
         Thing.objects.create(title="Test Title", subtitle="Test Subtitle", description="Test Description")
 
-    def test_search_title(self):
+class ThingModelOrderingTest(TestCase):
+    def setUp(self):
+        Thing.objects.create(title="Keyword in Title", subtitle="No Keyword", description="No Keyword")
+        Thing.objects.create(title="No Keyword", subtitle="Keyword in Subtitle", description="No Keyword")
+        Thing.objects.create(title="No Keyword", subtitle="No Keyword", description="Keyword in Description")
+
+    def test_search_ordering(self):
+        results = Thing.objects.search("Keyword")
+        self.assertEqual(results[0].title, "Keyword in Title")
+        self.assertEqual(results[1].subtitle, "Keyword in Subtitle")
+        self.assertEqual(results[2].description, "Keyword in Description")
         results = Thing.objects.search("Title")
         self.assertEqual(results.count(), 1)
 
