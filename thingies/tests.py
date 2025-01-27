@@ -2,23 +2,12 @@ from django.test import TestCase
 
 from .models import Thing
 
+
 class ThingModelTest(TestCase):
     def setUp(self):
-        Thing.objects.create(title="Test Title", subtitle="Test Subtitle", description="Test Description")
-
-class ThingModelOrderingTest(TestCase):
-    def setUp(self):
-        Thing.objects.create(title="Keyword in Title", subtitle="No Keyword", description="No Keyword")
-        Thing.objects.create(title="No Keyword", subtitle="Keyword in Subtitle", description="No Keyword")
-        Thing.objects.create(title="No Keyword", subtitle="No Keyword", description="Keyword in Description")
-
-    def test_search_ordering(self):
-        results = Thing.objects.search("Keyword")
-        self.assertEqual(results[0].title, "Keyword in Title")
-        self.assertEqual(results[1].subtitle, "Keyword in Subtitle")
-        self.assertEqual(results[2].description, "Keyword in Description")
-        results = Thing.objects.search("Title")
-        self.assertEqual(results.count(), 1)
+        Thing.objects.create(
+            title="Test Title", subtitle="Test Subtitle", description="Test Description"
+        )
 
     def test_search_subtitle(self):
         results = Thing.objects.search("Subtitle")
@@ -33,3 +22,25 @@ class ThingModelOrderingTest(TestCase):
         self.assertEqual(results.count(), 0)
         results = Thing.objects.search("Test")
         self.assertEqual(results.count(), 1)
+
+
+class ThingModelOrderingTest(TestCase):
+    def setUp(self):
+        Thing.objects.create(
+            title="No Keyword", subtitle="Keyword in Subtitle", description="No Keyword"
+        )
+        Thing.objects.create(
+            title="No Keyword",
+            subtitle="No Keyword",
+            description="Keyword in Description",
+        )
+        Thing.objects.create(
+            title="Keyword in Title", subtitle="No Keyword", description="No Keyword"
+        )
+
+
+    def test_search_ordering(self):
+        results = Thing.objects.search("Keyword")
+        self.assertEqual(results[0].title, "Keyword in Title")
+        self.assertEqual(results[1].subtitle, "Keyword in Subtitle")
+        self.assertEqual(results[2].description, "Keyword in Description")
