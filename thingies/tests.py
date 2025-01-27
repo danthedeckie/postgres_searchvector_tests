@@ -27,15 +27,15 @@ class ThingModelTest(TestCase):
 class ThingModelOrderingTest(TestCase):
     def setUp(self):
         Thing.objects.create(
-            title="No Keyword", subtitle="Keyword in Subtitle", description="No Keyword"
+            title="Nope", subtitle="Keyword in Subtitle", description="Nope"
         )
         Thing.objects.create(
-            title="No Keyword",
-            subtitle="No Keyword",
+            title="Other",
+            subtitle="Things",
             description="Keyword in Description",
         )
         Thing.objects.create(
-            title="Keyword in Title", subtitle="No Keyword", description="No Keyword"
+            title="Keyword in Title", subtitle="Stuff", description="Other"
         )
 
 
