@@ -27,3 +27,5 @@ static/dist
 
 # test results
 a11y_test_results.json
+.aider*
+.env
